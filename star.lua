@@ -1,6 +1,7 @@
 util = require "util"
 
 local star = {}
+local a = {}
 local star_r = 10
 local star_polygon = 5
 local star_special_chance = 6
@@ -12,54 +13,54 @@ local win_h = love.graphics.getHeight()
 function star.load()
 	star_N = 100
 	for i=1,star_N do
-		star[i] = {}
-		star[i].x = math.random(0, win_w)
-		star[i].y = math.random(0, win_h)
-		star[i].vx = math.random(-star_vmax,star_vmax)
-		star[i].vy = math.random(-star_vmax,star_vmax)
-		star[i].special = util.chance(star_special_chance)
-		star[i].active = true
+		a[i] = {}
+		a[i].x = math.random(0, win_w)
+		a[i].y = math.random(0, win_h)
+		a[i].vx = math.random(-star_vmax,star_vmax)
+		a[i].vy = math.random(-star_vmax,star_vmax)
+		a[i].special = util.chance(star_special_chance)
+		a[i].active = true
 	end
 end
 
 function star.draw()
-	for i=1,star_N do
-		if not star[i].active then
+	for i=1,#a do
+		if not a[i].active then
 			goto next
 		end
 
 		love.graphics.setColor(1,1,1)
-		if star[i].special then
+		if a[i].special then
 			love.graphics.setColor(1, 0, 0)
 		end
-		love.graphics.circle("fill", star[i].x, star[i].y, star_r, star_polygon)
+		love.graphics.circle("fill", a[i].x, a[i].y, star_r, star_polygon)
 		::next::
 	end
 end
 
 -- update star position (bounce off the walls)
 function star.update(dt)
-	for i=1,star_N do
-		if not star[i].active then
+	for i=1,#a do
+		if not a[i].active then
 			goto next
 		end
 
 		-- calc next position
-		star[i].x = star[i].x + dt * star[i].vx
-		star[i].y = star[i].y + dt * star[i].vy
+		a[i].x = a[i].x + dt * a[i].vx
+		a[i].y = a[i].y + dt * a[i].vy
 
 		-- prevent movement outside wall
-		local x = util.clamp(star[i].x, star_r, win_w - star_r)
-		local y = util.clamp(star[i].y, star_r, win_h - star_r)
+		local x = util.clamp(a[i].x, star_r, win_w - star_r)
+		local y = util.clamp(a[i].y, star_r, win_h - star_r)
 
 		-- on wall hit change direction of star
-		if star[i].x ~= x then
-			star[i].x = x
-			star[i].vx = -star[i].vx
+		if a[i].x ~= x then
+			a[i].x = x
+			a[i].vx = -a[i].vx
 		end
-		if star[i].y ~= y then
-			star[i].y = y
-			star[i].vy = -star[i].vy
+		if a[i].y ~= y then
+			a[i].y = y
+			a[i].vy = -a[i].vy
 		end
 
 		::next::
@@ -69,14 +70,14 @@ end
 -- make star that is in the star_r vacinity of x, y
 -- inactive, and return it (else return nil)
 function star.destroy(x, y)
-	for i=1,star_N do
-		if not star[i].active then
+	for i=1,#a do
+		if not a[i].active then
 			goto next
 		end
-		local d = util.d(x, y, star[i].x, star[i].y)
+		local d = util.d(x, y, a[i].x, a[i].y)
 		if d < star_r then
-			star[i].active = false
-			return star[i]
+			a[i].active = false
+			return a[i]
 		end
 		::next::
 	end
