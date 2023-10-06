@@ -19,8 +19,8 @@ function dino.load()
 	dino.dir = dir.DOWN
 	dino.loop = 1.0
 	dino.v = 100
-	dino.x = 100
-	dino.y = 100
+	dino.x = win_w/2
+	dino.y = win_h/2
 
 	dino.tstart = love.timer.getTime()
 end
