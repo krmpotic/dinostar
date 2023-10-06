@@ -26,16 +26,24 @@ function dino.load()
 end
 
 function dino.update(dt)
-	if love.keyboard.isDown('left') then
+	local L = love.keyboard.isDown('left')
+	local R = love.keyboard.isDown('right')
+	local U = love.keyboard.isDown('up')
+	local D = love.keyboard.isDown('down')
+
+	if L then
 		dino.dir = dir.LEFT
 		dino.x = dino.x - dt * dino.v
-	elseif love.keyboard.isDown('right') then
+	end
+	if R then
 		dino.dir = dir.RIGHT
 		dino.x = dino.x + dt * dino.v
-	elseif love.keyboard.isDown('up') then
+	end
+	if U then
 		dino.dir = dir.UP
 		dino.y = dino.y - dt * dino.v
-	elseif love.keyboard.isDown('down') then
+	end
+	if D then
 		dino.dir = dir.DOWN
 		dino.y = dino.y + dt * dino.v
 	end
