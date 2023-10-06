@@ -74,15 +74,13 @@ function star.destroy(x, y)
 			goto next
 		end
 		local d = util.d(x, y, star[i].x, star[i].y)
-		if d < 10 then
+		if d < star_r then
 			star[i].active = false
-			if star[i].special then
-				return true
-			end
+			return star[i]
 		end
 		::next::
 	end
-	return false
+	return nil
 end
 
 return star
