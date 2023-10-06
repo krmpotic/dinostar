@@ -14,13 +14,17 @@ function star.load()
 		star[i].vy = math.random(-100,100)
 		star[i].r = 10
 		star[i].n = 5
+		star[i].special = (math.random(0, 99) < 95 and 0 or 1) == 1
 	end
 end
 
 function star.draw()
 	for i=1,star_N,1 do
-		-- love.graphics.setColor(1, 0, 0)
+		if star[i].special then
+			love.graphics.setColor(1, 0, 0)
+		end
 		love.graphics.circle("fill", star[i].x, star[i].y, star[i].r, star[i].n)  
+		love.graphics.setColor(1, 1, 1)
 	end
 end
 
