@@ -2,6 +2,7 @@ dino = require "dino"
 star = require "star"
 
 function love.load()
+	math.randomseed(os.time())
 	love.graphics.setBackgroundColor(204/255, 204/255, 204/255, 1)
 
 	dino.load()
