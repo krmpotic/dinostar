@@ -1,5 +1,5 @@
-dino = require("dino")
-star = require("star")
+dino = require "dino"
+star = require "star"
 
 function love.load()
 	love.graphics.setBackgroundColor(204/255, 204/255, 204/255, 1)
@@ -11,7 +11,6 @@ function love.load()
 end
 
 function love.draw()
-	love.graphics.print("dir = ".. dir .." x = " .. x .. " y = " .. y, 10, 10)
 	dino.draw()
 	star.draw()
 end
