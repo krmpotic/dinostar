@@ -2,6 +2,8 @@ util = require "util"
 
 local dino = {}
 local dir = { DOWN = 0, RIGHT = 1, UP = 2, LEFT = 3 }
+local win_w = love.graphics.getWidth()
+local win_h = love.graphics.getHeight()
 
 function dino.load()
 	dino = {}

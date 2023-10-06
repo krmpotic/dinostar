@@ -3,8 +3,6 @@ star = require "star"
 
 function love.load()
 	love.graphics.setBackgroundColor(204/255, 204/255, 204/255, 1)
-	win_w = love.graphics.getWidth()
-	win_h = love.graphics.getHeight()
 
 	dino.load()
 	star.load()

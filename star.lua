@@ -1,6 +1,8 @@
 util = require "util"
 
 local star = {}
+local win_w = love.graphics.getWidth()
+local win_h = love.graphics.getHeight()
 
 function star.load()
 	star_N = 5
