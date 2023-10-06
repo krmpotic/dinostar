@@ -16,6 +16,11 @@ end
 function love.update(dt)
 	dino.update(dt)
 	star.update(dt)
+
+	local special = star.destroy(dino.pos())
+	if special then
+		dino.boost()
+	end
 end
 
 function love.keypressed(key, scancode, isrepeat)
