@@ -14,7 +14,7 @@ function star.load()
 		star[i].vy = math.random(-100,100)
 		star[i].r = 10
 		star[i].n = 5
-		star[i].special = (math.random(0, 99) < 90 and 0 or 1) == 1
+		star[i].special = util.chance(5)
 		star[i].active = true
 	end
 end
@@ -24,11 +24,15 @@ function star.draw()
 		if not star[i].active then
 			goto next
 		end
+
+		local r,g,b,a
+		r,g,b,a = love.graphics.getColor()
+
 		if star[i].special then
 			love.graphics.setColor(1, 0, 0)
 		end
 		love.graphics.circle("fill", star[i].x, star[i].y, star[i].r, star[i].n)  
-		love.graphics.setColor(1, 1, 1)
+		love.graphics.setColor(r,g,b,a)
 		::next::
 	end
 end
@@ -38,10 +42,16 @@ function star.update(dt)
 		if not star[i].active then
 			goto next
 		end
+
+		-- calc next position
 		star[i].x = star[i].x + dt * star[i].vx
 		star[i].y = star[i].y + dt * star[i].vy
+
+		-- prevent movement outside wall
 		local x = util.clamp(star[i].x, star[i].r, win_w - star[i].r)
 		local y = util.clamp(star[i].y, star[i].r, win_h - star[i].r)
+
+		-- on wall hit change direction of star
 		if star[i].x ~= x then
 			star[i].x = x
 			star[i].vx = -star[i].vx
@@ -50,6 +60,7 @@ function star.update(dt)
 			star[i].y = y
 			star[i].vy = -star[i].vy
 		end
+
 		::next::
 	end
 end
