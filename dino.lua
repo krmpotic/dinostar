@@ -18,7 +18,7 @@ function dino.load()
 
 	dino.dir = dir.DOWN
 	dino.loop = 1.0
-	dino.v = 500
+	dino.v = 1000
 	dino.x = 100
 	dino.y = 100
 

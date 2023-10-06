@@ -5,13 +5,13 @@ local win_w = love.graphics.getWidth()
 local win_h = love.graphics.getHeight()
 
 function star.load()
-	star_N = 5
+	star_N = 100
 	for i=1,star_N,1 do
 		star[i] = {}
 		star[i].x = math.random(0, win_w)
 		star[i].y = math.random(0, win_h)
-		star[i].vx = math.random(50,100)
-		star[i].vy = math.random(50,100)
+		star[i].vx = math.random(-100,100)
+		star[i].vy = math.random(-100,100)
 		star[i].r = 10
 		star[i].n = 5
 	end
