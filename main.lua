@@ -3,6 +3,8 @@ star = require "star"
 
 function love.load()
 	math.randomseed(os.time())
+
+	love.window.setTitle("DinoStar")
 	love.graphics.setBackgroundColor(204/255, 204/255, 204/255, 1)
 
 	dino.load()
