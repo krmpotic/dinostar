@@ -19,6 +19,8 @@ function dinoload()
 	f_moving = false
 	v = 500
 	x, y = 100, 100
+
+	dino_tstart = love.timer.getTime()
 end
 
 function dinoupdate(dt)
@@ -36,21 +38,12 @@ function dinoupdate(dt)
 		y = y + dt * v
 	end
 	dinofixpos()
-
-	local prev = f_moving
-	f_moving = not love.keyboard.isDown('left', 'right', 'up', 'down')
-	if f_moving and prev ~= f_moving then
-		t = love.timer.getTime()
-	end
 end
 
 function dinodraw()
-	local i = 0
-	if f_moving then
-		local t_ = love.timer.getTime() - t
-		t_ = 4 * (t_ % dino_loop)
-		i = math.floor(t_)
-	end
+	local t_ = love.timer.getTime() - dino_tstart
+	t_ = 4 * (t_ % dino_loop)
+	i = math.floor(t_)
 	love.graphics.draw(dino[dir][i], x, y, 0, 1, 1, dino_w/2, dino_h/2)
 end
 
