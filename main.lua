@@ -15,8 +15,8 @@ function love.load()
 	dino_h = 32
 
 	dir = DOWN
-	still = true
 	dino_loop = 1.0
+	f_moving = false
 	v = 500
 	x, y = 100, 100
 
@@ -29,10 +29,8 @@ end
 function love.draw()
 	love.graphics.print("dir = ".. dir .." x = " .. x .. " y = " .. y, 10, 10)
 
-	local i
-	if still then  
-		i = 0
-	else 
+	local i = 0
+	if f_moving then
 		local t_ = love.timer.getTime() - t
 		t_ = 4 * (t_ % dino_loop)
 		i = math.floor(t_)
@@ -41,10 +39,6 @@ function love.draw()
 end
 
 function love.update(dt)
-
-	local prev = still
-
-	still = false
 	if love.keyboard.isDown('left') then
 		dir = LEFT
 		x = x - dt * v
@@ -57,12 +51,12 @@ function love.update(dt)
 	elseif love.keyboard.isDown('down') then
 		dir = DOWN
 		y = y + dt * v
-	else
-		still = true
 	end
 	dinofixpos()
 
-	if still == false and prev ~= still then
+	local prev = f_moving
+	f_moving = not love.keyboard.isDown('left', 'right', 'up', 'down')
+	if f_moving and prev ~= f_moving then
 		t = love.timer.getTime()
 	end
 end
