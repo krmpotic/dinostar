@@ -62,7 +62,7 @@ function dino.pos()
 end
 
 function dino.boost()
-	dino.v = 2 * dino.v
+	dino.v = 1.5 * dino.v
 end
 
 function fixpos()

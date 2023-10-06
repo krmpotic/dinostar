@@ -14,7 +14,7 @@ function star.load()
 		star[i].vy = math.random(-100,100)
 		star[i].r = 10
 		star[i].n = 5
-		star[i].special = (math.random(0, 99) < 95 and 0 or 1) == 1
+		star[i].special = (math.random(0, 99) < 90 and 0 or 1) == 1
 		star[i].active = true
 	end
 end
