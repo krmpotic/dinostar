@@ -1,6 +1,8 @@
-require('util')
+util = require('util')
 
-function dinoload()
+local dino = {}
+
+function dino.load()
 	DOWN = 0
 	RIGHT = 1
 	UP = 2
@@ -25,7 +27,7 @@ function dinoload()
 	dino_tstart = love.timer.getTime()
 end
 
-function dinoupdate(dt)
+function dino.update(dt)
 	if love.keyboard.isDown('left') then
 		dir = LEFT
 		x = x - dt * v
@@ -39,17 +41,19 @@ function dinoupdate(dt)
 		dir = DOWN
 		y = y + dt * v
 	end
-	dinofixpos()
+	fixpos()
 end
 
-function dinodraw()
+function dino.draw()
 	local t_ = love.timer.getTime() - dino_tstart
 	t_ = 4 * (t_ % dino_loop)
 	i = math.floor(t_)
 	love.graphics.draw(dino[dir][i], x, y, 0, 1, 1, dino_w/2, dino_h/2)
 end
 
-function dinofixpos()
-	x = clamp(x, dino_w/2, win_w - dino_w/2)
-	y = clamp(y, dino_h/2, win_h - dino_h/2)
+function fixpos()
+	x = util.clamp(x, dino_w/2, win_w - dino_w/2)
+	y = util.clamp(y, dino_h/2, win_h - dino_h/2)
 end
+
+return dino
