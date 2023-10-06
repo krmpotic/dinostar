@@ -22,21 +22,21 @@ end
 function star.draw()
 	for i=1,star_N,1 do
 		if not star[i].active then
-			goto done
+			goto next
 		end
 		if star[i].special then
 			love.graphics.setColor(1, 0, 0)
 		end
 		love.graphics.circle("fill", star[i].x, star[i].y, star[i].r, star[i].n)  
 		love.graphics.setColor(1, 1, 1)
-		::done::
+		::next::
 	end
 end
 
 function star.update(dt)
 	for i=1,star_N,1 do
 		if not star[i].active then
-			goto done
+			goto next
 		end
 		star[i].x = star[i].x + dt * star[i].vx
 		star[i].y = star[i].y + dt * star[i].vy
@@ -50,14 +50,14 @@ function star.update(dt)
 			star[i].y = y
 			star[i].vy = -star[i].vy
 		end
-		::done::
+		::next::
 	end
 end
 
 function star.destroy(x, y)
 	for i=1,star_N,1 do
 		if not star[i].active then
-			goto done
+			goto next
 		end
 		local d = util.d(x, y, star[i].x, star[i].y)
 		if d < 10 then
@@ -66,7 +66,7 @@ function star.destroy(x, y)
 				return true
 			end
 		end
-		::done::
+		::next::
 	end
 	return false
 end
