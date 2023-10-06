@@ -9,14 +9,7 @@ end
 
 function love.draw()
 	love.graphics.print("dir = ".. dir .." x = " .. x .. " y = " .. y, 10, 10)
-
-	local i = 0
-	if f_moving then
-		local t_ = love.timer.getTime() - t
-		t_ = 4 * (t_ % dino_loop)
-		i = math.floor(t_)
-	end
-	love.graphics.draw(dino[dir][i], x, y, 0, 1, 1, dino_w/2, dino_h/2)
+	dinodraw()
 end
 
 function love.update(dt)
@@ -73,6 +66,16 @@ function dinoupdate(dt)
 	if f_moving and prev ~= f_moving then
 		t = love.timer.getTime()
 	end
+end
+
+function dinodraw()
+	local i = 0
+	if f_moving then
+		local t_ = love.timer.getTime() - t
+		t_ = 4 * (t_ % dino_loop)
+		i = math.floor(t_)
+	end
+	love.graphics.draw(dino[dir][i], x, y, 0, 1, 1, dino_w/2, dino_h/2)
 end
 
 function dinofixpos()
