@@ -28,18 +28,16 @@ function star.draw()
 			goto next
 		end
 
-		local r,g,b,a
-		r,g,b,a = love.graphics.getColor()
-
+		love.graphics.setColor(1,1,1)
 		if star[i].special then
 			love.graphics.setColor(1, 0, 0)
 		end
 		love.graphics.circle("fill", star[i].x, star[i].y, star_r, star_polygon)
-		love.graphics.setColor(r,g,b,a)
 		::next::
 	end
 end
 
+-- update star position (bounce off the walls)
 function star.update(dt)
 	for i=1,star_N do
 		if not star[i].active then
@@ -68,6 +66,8 @@ function star.update(dt)
 	end
 end
 
+-- make star that is in the star_r vacinity of x, y
+-- inactive, and return it (else return nil)
 function star.destroy(x, y)
 	for i=1,star_N do
 		if not star[i].active then

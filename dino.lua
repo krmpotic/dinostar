@@ -56,6 +56,7 @@ end
 
 function dino.draw()
 	i = math.floor(img_n * ((love.timer.getTime() % img_loop) / img_loop))
+	love.graphics.setColor(1,1,1)
 	love.graphics.draw(dino[dino.dir][i], dino.x, dino.y, 0, 1, 1, w/2, h/2)
 end
 
