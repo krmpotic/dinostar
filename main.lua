@@ -17,7 +17,7 @@ function love.load()
 	dir = DOWN
 	still = true
 	dino_loop = 1.0
-	v = 150
+	v = 500
 	x, y = 100, 100
 
 	win_w = love.graphics.getWidth()
