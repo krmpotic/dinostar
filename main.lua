@@ -19,7 +19,7 @@ function love.update(dt)
 
 	local s = star.destroy(dino.pos())
 	if s ~= nil and s.special then
-		dino.boost()
+		dino.boost(1.5)
 	end
 end
 

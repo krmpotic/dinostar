@@ -3,8 +3,10 @@ util = require "util"
 local dino = {}
 local w = 32
 local h = 32
-local loop = 1.0
 local v0 = 100
+
+local img_n = 4
+local img_loop = 100 / v0
 
 local dir = { DOWN = 0, RIGHT = 1, UP = 2, LEFT = 3 }
 local win_w = love.graphics.getWidth()
@@ -14,13 +16,12 @@ function dino.load()
 	dino = {}
 	for i = 0,3 do
 		dino[i] = {}
-		for j = 0,3 do
+		for j = 0,(img_n-1) do
 			dino[i][j] = love.graphics.newImage("pics/dino-" .. i .. "-" .. j .. ".png")
 		end
 	end
 
 	dino.dir = dir.DOWN
-	dino.loop = 1.0
 	dino.v = v0
 	dino.x = win_w/2
 	dino.y = win_h/2
@@ -54,7 +55,7 @@ function dino.update(dt)
 end
 
 function dino.draw()
-	i = math.floor(4 * ((love.timer.getTime() % dino.loop) / dino.loop))
+	i = math.floor(img_n * ((love.timer.getTime() % img_loop) / img_loop))
 	love.graphics.draw(dino[dino.dir][i], dino.x, dino.y, 0, 1, 1, w/2, h/2)
 end
 
@@ -62,14 +63,14 @@ function dino.pos()
 	return dino.x, dino.y
 end
 
-function dino.boost()
-	dino.v = 1.5 * dino.v
+function dino.boost(k)
+	dino.v = k * dino.v
+	img_loop = img_loop / k
 end
 
 function fixpos()
 	dino.x = util.clamp(dino.x, w/2, win_w - w/2)
 	dino.y = util.clamp(dino.y, h/2, win_h - h/2)
 end
-
 
 return dino
