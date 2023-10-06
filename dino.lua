@@ -1,3 +1,5 @@
+require('util')
+
 function dinoload()
 	DOWN = 0
 	RIGHT = 1
@@ -48,16 +50,6 @@ function dinodraw()
 end
 
 function dinofixpos()
-	if x < dino_w/2 then
-		x = dino_w/2
-	end
-	if x > win_w - dino_w/2 then
-		x = win_w - dino_w/2
-	end
-	if y < dino_h/2 then
-		y = dino_h/2
-	end
-	if y > win_h - dino_h/2 then
-		y = win_h - dino_h/2
-	end
+	x = clamp(x, dino_w/2, win_w - dino_w/2)
+	y = clamp(y, dino_h/2, win_h - dino_h/2)
 end

@@ -23,20 +23,14 @@ function starupdate(dt)
 	for i=1,star_N,1 do
 		star[i].x = star[i].x + dt * star[i].vx
 		star[i].y = star[i].y + dt * star[i].vy
-		if star[i].x < star[i].r then
-			star[i].x = star[i].r
+		local x = clamp(star[i].x, star[i].r, win_w - star[i].r)
+		local y = clamp(star[i].y, star[i].r, win_h - star[i].r)
+		if star[i].x ~= x then
+			star[i].x = x
 			star[i].vx = -star[i].vx
 		end
-		if star[i].x > win_w - star[i].r then
-			star[i].x = win_w - star[i].r
-			star[i].vx = -star[i].vx
-		end
-		if star[i].y < star[i].r then
-			star[i].y = star[i].r
-			star[i].vy = -star[i].vy
-		end
-		if star[i].y > win_h - star[i].r then
-			star[i].y = win_h - star[i].r
+		if star[i].y ~= y then
+			star[i].y = y
 			star[i].vy = -star[i].vy
 		end
 	end
