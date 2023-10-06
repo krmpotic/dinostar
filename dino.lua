@@ -7,9 +7,9 @@ local win_h = love.graphics.getHeight()
 
 function dino.load()
 	dino = {}
-	for i = 0,3,1 do
+	for i = 0,3 do
 		dino[i] = {}
-		for j = 0,3,1 do
+		for j = 0,3 do
 			dino[i][j] = love.graphics.newImage("pics/dino-" .. i .. "-" .. j .. ".png")
 		end
 	end

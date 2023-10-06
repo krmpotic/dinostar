@@ -6,7 +6,7 @@ local win_h = love.graphics.getHeight()
 
 function star.load()
 	star_N = 100
-	for i=1,star_N,1 do
+	for i=1,star_N do
 		star[i] = {}
 		star[i].x = math.random(0, win_w)
 		star[i].y = math.random(0, win_h)
@@ -20,7 +20,7 @@ function star.load()
 end
 
 function star.draw()
-	for i=1,star_N,1 do
+	for i=1,star_N do
 		if not star[i].active then
 			goto next
 		end
@@ -34,7 +34,7 @@ function star.draw()
 end
 
 function star.update(dt)
-	for i=1,star_N,1 do
+	for i=1,star_N do
 		if not star[i].active then
 			goto next
 		end
@@ -55,7 +55,7 @@ function star.update(dt)
 end
 
 function star.destroy(x, y)
-	for i=1,star_N,1 do
+	for i=1,star_N do
 		if not star[i].active then
 			goto next
 		end
