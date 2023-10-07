@@ -7,19 +7,19 @@ local win_h = love.graphics.getHeight()
 
 local a = {}
 
-local star_N = 100
+local star_N = 300
 local star_r = 10
 local star_polygon = 5
-local star_vmax = 100
+local star_vmax = 200
 
 local xmin = star_r
 local xmax = win_w - star_r
 local ymin = star_r
 local ymax = win_h - star_r
 
-local red_chance = 5
-local green_chance = 5
-local blue_chance = 5
+local red_chance = 10
+local green_chance = 1
+local blue_chance = 10
 local yellow_chance = 3
 
 function star.load()

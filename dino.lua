@@ -3,7 +3,7 @@ util = require "util"
 local dino = {}
 local w = 32
 local h = 32
-local v0 = 100
+local v0 = 200
 
 local img_n = 4
 local img_loop = 100 / v0
