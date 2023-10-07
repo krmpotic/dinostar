@@ -30,24 +30,20 @@ function dino.load()
 end
 
 function dino.update(dt)
-	local L = love.keyboard.isDown('left')
-	local R = love.keyboard.isDown('right')
-	local U = love.keyboard.isDown('up')
-	local D = love.keyboard.isDown('down')
-
-	if L then
+	local key = love.keyboard.isDown
+	if key('left') then
 		dino.dir = dir.LEFT
 		dino.x = dino.x - dt * dino.v
 	end
-	if R then
+	if key('right') then
 		dino.dir = dir.RIGHT
 		dino.x = dino.x + dt * dino.v
 	end
-	if U then
+	if key('up') then
 		dino.dir = dir.UP
 		dino.y = dino.y - dt * dino.v
 	end
-	if D then
+	if key('down') then
 		dino.dir = dir.DOWN
 		dino.y = dino.y + dt * dino.v
 	end
