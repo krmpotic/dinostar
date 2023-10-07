@@ -80,10 +80,9 @@ function star.update(dt)
 end
 
 -- remove star that is in the star_r vacinity of x, y (and return it)
-function star.destroy(x, y)
+function star.destroy(hit)
 	for i=1,#a do
-		local d = util.d(x, y, a[i].x, a[i].y)
-		if d < star_r then
+		if hit(a[i].x, a[i].y) then
 			return table.remove(a, i)
 		end
 	end

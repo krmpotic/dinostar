@@ -20,7 +20,7 @@ function love.update(dt)
 	dino.update(dt)
 	star.update(dt)
 
-	local s = star.destroy(dino.pos())
+	local s = star.destroy(dino.hitbox())
 	if s ~= nil then
 		if s.typ == 2 then
 			dino.boost(1.5)

@@ -65,6 +65,12 @@ function dino.boost(k)
 	img_loop = img_loop / k
 end
 
+function dino.hitbox()
+	return function(x, y)
+		return util.d(dino.x,dino.y,x,y) < w/2
+	end
+end
+
 function fixpos()
 	dino.x = util.clamp(dino.x, w/2, win_w - w/2)
 	dino.y = util.clamp(dino.y, h/2, win_h - h/2)
