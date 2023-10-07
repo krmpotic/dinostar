@@ -6,9 +6,10 @@ local win_w = love.graphics.getWidth()
 local win_h = love.graphics.getHeight()
 
 local a = {}
+
+local star_N = 100
 local star_r = 10
 local star_polygon = 5
-local star_special_chance = 6
 local star_vmax = 100
 
 local xmin = star_r
@@ -16,23 +17,40 @@ local xmax = win_w - star_r
 local ymin = star_r
 local ymax = win_h - star_r
 
+local red_chance = 5
+local green_chance = 5
+local blue_chance = 5
+
 function star.load()
-	star_N = 100
 	for i=1,star_N do
 		a[i] = {}
 		a[i].x = math.random(xmin, xmax)
 		a[i].y = math.random(ymin, ymax)
 		a[i].vx = math.random(-star_vmax,star_vmax)
 		a[i].vy = math.random(-star_vmax,star_vmax)
-		a[i].special = util.chance(star_special_chance)
+
+		if util.chance(red_chance) then
+			a[i].typ = 2
+		elseif util.chance(green_chance) then
+			a[i].typ = 3
+		elseif util.chance(blue_chance) then
+			a[i].typ = 4
+		else
+			a[i].typ = 1
+		end
 	end
 end
 
 function star.draw()
 	for i=1,#a do
-		love.graphics.setColor(1,1,1)
-		if a[i].special then
+		if a[i].typ == 2 then
 			love.graphics.setColor(1, 0, 0)
+		elseif a[i].typ == 3 then
+			love.graphics.setColor(0, 1, 0)
+		elseif a[i].typ == 4 then
+			love.graphics.setColor(0, 0, 1)
+		else
+			love.graphics.setColor(1,1,1)
 		end
 		love.graphics.circle("fill", a[i].x, a[i].y, star_r, star_polygon)
 	end

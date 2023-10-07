@@ -21,8 +21,14 @@ function love.update(dt)
 	star.update(dt)
 
 	local s = star.destroy(dino.pos())
-	if s ~= nil and s.special then
-		dino.boost(1.5)
+	if s ~= nil then
+		if s.typ == 2 then
+			dino.boost(1.5)
+		elseif s.typ == 3 then
+			love.event.quit()
+		elseif s.typ == 4 then
+			dino.boost(0.8)
+		end
 	end
 end
 
