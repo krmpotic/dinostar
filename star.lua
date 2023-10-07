@@ -19,16 +19,11 @@ function star.load()
 		a[i].vx = math.random(-star_vmax,star_vmax)
 		a[i].vy = math.random(-star_vmax,star_vmax)
 		a[i].special = util.chance(star_special_chance)
-		a[i].active = true
 	end
 end
 
 function star.draw()
 	for i=1,#a do
-		if not a[i].active then
-			goto next
-		end
-
 		love.graphics.setColor(1,1,1)
 		if a[i].special then
 			love.graphics.setColor(1, 0, 0)
@@ -41,10 +36,6 @@ end
 -- update star position (bounce off the walls)
 function star.update(dt)
 	for i=1,#a do
-		if not a[i].active then
-			goto next
-		end
-
 		-- calc next position
 		a[i].x = a[i].x + dt * a[i].vx
 		a[i].y = a[i].y + dt * a[i].vy
@@ -67,17 +58,12 @@ function star.update(dt)
 	end
 end
 
--- make star that is in the star_r vacinity of x, y
--- inactive, and return it (else return nil)
+-- remove star that is in the star_r vacinity of x, y (and return it)
 function star.destroy(x, y)
 	for i=1,#a do
-		if not a[i].active then
-			goto next
-		end
 		local d = util.d(x, y, a[i].x, a[i].y)
 		if d < star_r then
-			a[i].active = false
-			return a[i]
+			return table.remove(a, i)
 		end
 		::next::
 	end
