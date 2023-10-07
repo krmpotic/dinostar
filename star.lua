@@ -29,7 +29,6 @@ function star.draw()
 			love.graphics.setColor(1, 0, 0)
 		end
 		love.graphics.circle("fill", a[i].x, a[i].y, star_r, star_polygon)
-		::next::
 	end
 end
 
@@ -53,8 +52,6 @@ function star.update(dt)
 			a[i].y = y
 			a[i].vy = -a[i].vy
 		end
-
-		::next::
 	end
 end
 
@@ -65,7 +62,6 @@ function star.destroy(x, y)
 		if d < star_r then
 			return table.remove(a, i)
 		end
-		::next::
 	end
 	return nil
 end
