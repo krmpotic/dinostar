@@ -65,9 +65,12 @@ function dino.boost(k)
 	img_loop = img_loop / k
 end
 
-function dino.hitbox()
+function dino.hitbox(r)
+	if r == nil then
+		r = w/2
+	end
 	return function(x, y)
-		return util.d(dino.x,dino.y,x,y) < w/2
+		return util.d(dino.x,dino.y,x,y) < r
 	end
 end
 

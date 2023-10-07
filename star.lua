@@ -20,6 +20,7 @@ local ymax = win_h - star_r
 local red_chance = 5
 local green_chance = 5
 local blue_chance = 5
+local yellow_chance = 3
 
 function star.load()
 	for i=1,star_N do
@@ -35,6 +36,8 @@ function star.load()
 			a[i].typ = 3
 		elseif util.chance(blue_chance) then
 			a[i].typ = 4
+		elseif util.chance(yellow_chance) then
+			a[i].typ = 5
 		else
 			a[i].typ = 1
 		end
@@ -49,6 +52,8 @@ function star.draw()
 			love.graphics.setColor(0, 1, 0)
 		elseif a[i].typ == 4 then
 			love.graphics.setColor(0, 0, 1)
+		elseif a[i].typ == 5 then
+			love.graphics.setColor(1, 1, 0)
 		else
 			love.graphics.setColor(1,1,1)
 		end
@@ -79,14 +84,23 @@ function star.update(dt)
 	end
 end
 
--- remove star that is in the star_r vacinity of x, y (and return it)
-function star.destroy(hit)
+function star.eat(hit)
 	for i=1,#a do
 		if hit(a[i].x, a[i].y) then
 			return table.remove(a, i)
 		end
 	end
 	return nil
+end
+
+function star.destroy(hit)
+	::recheck::
+	for i=1,#a do
+		if hit(a[i].x, a[i].y) then
+			table.remove(a, i)
+			goto recheck
+		end
+	end
 end
 
 return star

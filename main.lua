@@ -20,7 +20,7 @@ function love.update(dt)
 	dino.update(dt)
 	star.update(dt)
 
-	local s = star.destroy(dino.hitbox())
+	local s = star.eat(dino.hitbox())
 	if s ~= nil then
 		if s.typ == 2 then
 			dino.boost(1.5)
@@ -28,6 +28,8 @@ function love.update(dt)
 			love.event.quit()
 		elseif s.typ == 4 then
 			dino.boost(0.8)
+		elseif s.typ == 5 then
+			star.destroy(dino.hitbox(150))
 		end
 	end
 end
