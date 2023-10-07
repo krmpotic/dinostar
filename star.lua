@@ -1,21 +1,27 @@
 util = require "util"
 
 local star = {}
+
+local win_w = love.graphics.getWidth()
+local win_h = love.graphics.getHeight()
+
 local a = {}
 local star_r = 10
 local star_polygon = 5
 local star_special_chance = 6
 local star_vmax = 100
 
-local win_w = love.graphics.getWidth()
-local win_h = love.graphics.getHeight()
+local xmin = star_r
+local xmax = win_w - star_r
+local ymin = star_r
+local ymax = win_h - star_r
 
 function star.load()
 	star_N = 100
 	for i=1,star_N do
 		a[i] = {}
-		a[i].x = math.random(0, win_w)
-		a[i].y = math.random(0, win_h)
+		a[i].x = math.random(xmin, xmax)
+		a[i].y = math.random(ymin, ymax)
 		a[i].vx = math.random(-star_vmax,star_vmax)
 		a[i].vy = math.random(-star_vmax,star_vmax)
 		a[i].special = util.chance(star_special_chance)
@@ -40,8 +46,8 @@ function star.update(dt)
 		a[i].y = a[i].y + dt * a[i].vy
 
 		-- prevent movement outside wall
-		local x = util.clamp(a[i].x, star_r, win_w - star_r)
-		local y = util.clamp(a[i].y, star_r, win_h - star_r)
+		local x = util.clamp(a[i].x, xmin, xmax)
+		local y = util.clamp(a[i].y, ymin, ymax)
 
 		-- on wall hit change direction of star
 		if a[i].x ~= x then
