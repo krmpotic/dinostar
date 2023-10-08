@@ -45,48 +45,48 @@ function star.load()
 end
 
 function star.draw()
-	for i=1,#a do
-		if a[i].typ == 2 then
+	for i, v in ipairs(a) do
+		if v.typ == 2 then
 			love.graphics.setColor(1, 0, 0)
-		elseif a[i].typ == 3 then
+		elseif v.typ == 3 then
 			love.graphics.setColor(0, 1, 0)
-		elseif a[i].typ == 4 then
+		elseif v.typ == 4 then
 			love.graphics.setColor(0, 0, 1)
-		elseif a[i].typ == 5 then
+		elseif v.typ == 5 then
 			love.graphics.setColor(1, 1, 0)
 		else
 			love.graphics.setColor(1,1,1)
 		end
-		love.graphics.circle("fill", a[i].x, a[i].y, star_r, star_polygon)
+		love.graphics.circle("fill", v.x, v.y, star_r, star_polygon)
 	end
 end
 
 -- update star position (bounce off the walls)
 function star.update(dt)
-	for i=1,#a do
+	for i, v in ipairs(a) do
 		-- calc next position
-		a[i].x = a[i].x + dt * a[i].vx
-		a[i].y = a[i].y + dt * a[i].vy
+		v.x = v.x + dt * v.vx
+		v.y = v.y + dt * v.vy
 
 		-- prevent movement outside wall
-		local x = util.clamp(a[i].x, xmin, xmax)
-		local y = util.clamp(a[i].y, ymin, ymax)
+		local x = util.clamp(v.x, xmin, xmax)
+		local y = util.clamp(v.y, ymin, ymax)
 
 		-- on wall hit change direction of star
-		if a[i].x ~= x then
-			a[i].x = x
-			a[i].vx = -a[i].vx
+		if v.x ~= x then
+			v.x = x
+			v.vx = -v.vx
 		end
-		if a[i].y ~= y then
-			a[i].y = y
-			a[i].vy = -a[i].vy
+		if v.y ~= y then
+			v.y = y
+			v.vy = -v.vy
 		end
 	end
 end
 
 function star.eat(hit)
-	for i=1,#a do
-		if hit(a[i].x, a[i].y) then
+	for i, v in ipairs(a) do
+		if hit(v.x, v.y) then
 			return table.remove(a, i)
 		end
 	end
@@ -95,8 +95,8 @@ end
 
 function star.destroy(hit)
 	::recheck::
-	for i=1,#a do
-		if hit(a[i].x, a[i].y) then
+	for i, v in ipairs(a) do
+		if hit(v.x, v.y) then
 			table.remove(a, i)
 			goto recheck
 		end
