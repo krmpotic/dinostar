@@ -1,7 +1,7 @@
 dino = require "dino"
 star = require "star"
 
-function love.load()
+function love.load ()
 	math.randomseed(os.time())
 
 	love.window.setTitle("DinoStar")
@@ -11,12 +11,12 @@ function love.load()
 	star.load()
 end
 
-function love.draw()
+function love.draw ()
 	dino.draw()
 	star.draw()
 end
 
-function love.update(dt)
+function love.update (dt)
 	dino.update(dt)
 	star.update(dt)
 
@@ -34,7 +34,7 @@ function love.update(dt)
 	end
 end
 
-function love.keypressed(key, scancode, isrepeat)
+function love.keypressed (key, scancode, isrepeat)
 	if key == 'escape' or key == 'q' then
 		love.event.quit()
 	end

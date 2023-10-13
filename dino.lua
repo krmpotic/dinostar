@@ -12,7 +12,7 @@ local dir = { DOWN = 0, RIGHT = 1, UP = 2, LEFT = 3 }
 local win_w = love.graphics.getWidth()
 local win_h = love.graphics.getHeight()
 
-function dino.load()
+function dino.load ()
 	dino = {}
 	for i = 0,3 do
 		dino[i] = {}
@@ -29,7 +29,7 @@ function dino.load()
 	dino.tstart = love.timer.getTime()
 end
 
-function dino.update(dt)
+function dino.update (dt)
 	local key = love.keyboard.isDown
 	if key('left') then
 		dino.dir = dir.LEFT
@@ -50,22 +50,22 @@ function dino.update(dt)
 	fixpos()
 end
 
-function dino.draw()
+function dino.draw ()
 	i = math.floor(img_n * ((love.timer.getTime() % img_loop) / img_loop))
 	love.graphics.setColor(1,1,1)
 	love.graphics.draw(dino[dino.dir][i], dino.x, dino.y, 0, 1, 1, w/2, h/2)
 end
 
-function dino.pos()
+function dino.pos ()
 	return dino.x, dino.y
 end
 
-function dino.boost(k)
+function dino.boost (k)
 	dino.v = k * dino.v
 	img_loop = img_loop / k
 end
 
-function dino.hitbox(r)
+function dino.hitbox (r)
 	if r == nil then
 		r = w/2
 	end
@@ -74,7 +74,7 @@ function dino.hitbox(r)
 	end
 end
 
-function fixpos()
+function fixpos ()
 	dino.x = util.clamp(dino.x, w/2, win_w - w/2)
 	dino.y = util.clamp(dino.y, h/2, win_h - h/2)
 end

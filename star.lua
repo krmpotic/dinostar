@@ -22,7 +22,7 @@ local green_chance = 1
 local blue_chance = 10
 local yellow_chance = 3
 
-function star.load()
+function star.load ()
 	for i=1,star_N do
 		a[i] = {}
 		a[i].x = math.random(xmin, xmax)
@@ -44,7 +44,7 @@ function star.load()
 	end
 end
 
-function star.draw()
+function star.draw ()
 	for i, v in ipairs(a) do
 		if v.typ == 2 then
 			love.graphics.setColor(1, 0, 0)
@@ -62,7 +62,7 @@ function star.draw()
 end
 
 -- update star position (bounce off the walls)
-function star.update(dt)
+function star.update (dt)
 	for i, v in ipairs(a) do
 		-- calc next position
 		v.x = v.x + dt * v.vx
@@ -84,7 +84,7 @@ function star.update(dt)
 	end
 end
 
-function star.eat(hit)
+function star.eat (hit)
 	for i, v in ipairs(a) do
 		if hit(v.x, v.y) then
 			return table.remove(a, i)
@@ -93,7 +93,7 @@ function star.eat(hit)
 	return nil
 end
 
-function star.destroy(hit)
+function star.destroy (hit)
 	::recheck::
 	for i, v in ipairs(a) do
 		if hit(v.x, v.y) then
