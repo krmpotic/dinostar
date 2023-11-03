@@ -218,6 +218,54 @@ x(3) -- 3 nil nil
 x(3,4) -- 3 4 nil
 x(3,4,5,6) -- 3 4 5
 
+keywords:
+and do else elseif end
+false for function if in
+local nil not or repeat return
+then true until while
+---
+break goto repeat until while
+
+break
+for p in iter(5) do
+    if p > 100 then
+        break
+    end
+end
+
+goto
+-- multilevel break
+-- continue
+for p in iter(5) do
+    if p % 10 then
+        goto next
+    end
+    -- something
+    ::next::
+end
+
+n = 0
+repeat
+    print(n)
+    n = n + 1
+until n == 10
+
+a = 0
+while ~= 10 do
+    print(a)
+    a = a + 1
+end
+
+types
+nil
+bool
+number
+string
+function
+table
+userdata (raw C data)
+thread
+
 resources
 Lua Programming Language 4th edition
 Lua Reference Manual
