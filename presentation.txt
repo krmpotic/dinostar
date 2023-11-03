@@ -1,0 +1,225 @@
+Lua 1993-
+lightweight, high-level
+embeddable into applications!
+
+vim, neovim
+awesome WM
+mpv, vlc
+nmap, snort
+love2d
+flame
+...
+
+comments
+-- single line comment
+--[[
+    multi
+    line
+    comment
+--]]
+---[[
+    not-commented!
+--]]
+
+type string
+a = "hello "
+b = 'world'
+c = [[!
+bye world!]]
+print(a .. b .. c)
+#b == 5
+
+type nil (keyword)
+type(foobar) == nil
+how to delete a variable:
+x = 5
+x = nil
+
+type bool
+a = true and false
+b = true or false
+c = not true
+
+short circuit evalutation
+x, y = 3, 5
+max = x > y and x or y
+
+if nil then
+    print("FALSE")
+elseif false then
+    print("FALSE")
+else
+    print("TRUE")
+end
+
+shadowing
+do
+    local x = 3
+    do
+        local x = 4
+        print(x) -- 4
+    end
+    print(x) -- 3
+end
+
+type number
+64 bit integer and floats
+1 == 1.0
++, -, *, ^, %, /, //
+<, >, <=, >=, ==, ~= 
+
+floor division
+5 / 3 == 1.66666...
+5 // 3 == 1
+5.0 // 3.0 == 1.0
+
+math library
+math.pi
+math.sin()
+math.max(10, 3, -5)
+
+bitwise operators
+<<, >> shift
+& bitwise and
+~ bitwise exclusive or
+| bitwise or
+
+10e3
+0xfff
+0xff.f
+0xff.fp1
+
+coercions
+math.sin("3")
+print(10 .. " fingers")
+
+string library
+string.format("x = %d, y = %d", 10, 30)
+string.upper("hello")
+string.reverse("ABBA")
+
+type table
+the only data structure!
+t = {}
+t[3] = "three"
+t[3.5] = "three point five"
+t["four"] = 4
+
+fake structures
+a["x"] = 3
+a["y"] = 4
+a.x = 3
+a.y = 4
+
+table list-style constructor
+days = {"Monday", "Tuesday", ..., "Sunday"}
+indexes start with 1!
+days[1] == "Monday"
+#days = 7
+
+table record-style constructor
+point = { x = 3, y = 4, z = 5 }
+point.y == 4
+opnames = { ["+"] = "add", ["-"] = "sub", ["*"] = "mul", ["/"] = div }
+
+table mix-style consturctor
+x = { group = "foo", "A", "B", "C" }
+x[1] == "A"
+x.group == "foo"
+
+x = {}
+for i = 1,10 do
+    x[i] = io.read()
+end
+
+traverse all key-value pairs (random order)
+x = {10, "foo", x = 3}
+for k, v in pairs(x) do
+    print(k,v)
+end
+1    10
+x    3
+2    foo
+
+ipairs -- traverse a list (ordered)
+x = {"A", "B", "C", foo = "bar" }
+for k, v in ipairs(x) do
+    print(k, v)
+end
+1    "A"
+2    "B"
+3    "C"
+
+global table _G
+x = 3
+_G["x"] == 3
+_G.x = nil
+x == nil
+
+type function
+function div(a,b)
+    return a//b, a%b
+end
+q, r = div(5,3)
+
+variadic function
+add = function (...)
+    local s = 0
+    for _, v in ipairs{...} do
+        s = s + v
+    end
+    return s
+end
+add(3,5,-1,200)
+
+closures!
+function iter(p)
+    local i = 0 
+    return function ()
+        i = i + 1
+        return n * i
+    end
+end
+----
+for n in iter(5) do
+    print(n)
+end
+5, 10, 15, 20, ...
+
+function values(t)
+    local i = 0
+    return function () i = i + 1; return t[i] end
+end
+---
+t = {3, 5, 12}
+for v in values(t) do
+    print(v)
+end
+3, 5, 12
+
+how libraries work
+math = {}
+function math.pi ()
+    return 3.14159265...
+end
+function math.sin (x)
+    -- sinus magic
+end
+math["cos"] = function (x)
+    -- cosine magic
+end
+return math
+
+math = require "mathfile"
+math.sin(3)
+
+function x(a,b,c) print(a,b,c) end
+x(3) -- 3 nil nil
+x(3,4) -- 3 4 nil
+x(3,4,5,6) -- 3 4 5
+
+resources
+Lua Programming Language 4th edition
+Lua Reference Manual
+love2d.org
+
