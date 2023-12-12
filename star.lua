@@ -5,8 +5,6 @@ local star = {}
 local win_w = love.graphics.getWidth()
 local win_h = love.graphics.getHeight()
 
-local a = {}
-
 local star_N = 300
 local star_r = 10
 local star_polygon = 5
@@ -24,28 +22,28 @@ local yellow_chance = 3
 
 function star.load ()
 	for i=1,star_N do
-		a[i] = {}
-		a[i].x = math.random(xmin, xmax)
-		a[i].y = math.random(ymin, ymax)
-		a[i].vx = math.random(-star_vmax,star_vmax)
-		a[i].vy = math.random(-star_vmax,star_vmax)
+		star[i] = {
+			x = math.random(xmin, xmax),
+			y = math.random(ymin, ymax),
+			vx = math.random(-star_vmax,star_vmax),
+			vy = math.random(-star_vmax,star_vmax),
+			typ = 1,
+		}
 
 		if util.chance(red_chance) then
-			a[i].typ = 2
+			star[i].typ = 2
 		elseif util.chance(green_chance) then
-			a[i].typ = 3
+			star[i].typ = 3
 		elseif util.chance(blue_chance) then
-			a[i].typ = 4
+			star[i].typ = 4
 		elseif util.chance(yellow_chance) then
-			a[i].typ = 5
-		else
-			a[i].typ = 1
+			star[i].typ = 5
 		end
 	end
 end
 
 function star.draw ()
-	for i, v in ipairs(a) do
+	for i, v in ipairs(star) do
 		if v.typ == 2 then
 			love.graphics.setColor(1, 0, 0)
 		elseif v.typ == 3 then
@@ -63,7 +61,7 @@ end
 
 -- update star position (bounce off the walls)
 function star.update (dt)
-	for i, v in ipairs(a) do
+	for i, v in ipairs(star) do
 		-- calc next position
 		v.x = v.x + dt * v.vx
 		v.y = v.y + dt * v.vy
@@ -85,9 +83,9 @@ function star.update (dt)
 end
 
 function star.eat (hit)
-	for i, v in ipairs(a) do
+	for i, v in ipairs(star) do
 		if hit(v.x, v.y) then
-			return table.remove(a, i)
+			return table.remove(star, i)
 		end
 	end
 	return nil
@@ -95,9 +93,9 @@ end
 
 function star.destroy (hit)
 	::recheck::
-	for i, v in ipairs(a) do
+	for i, v in ipairs(star) do
 		if hit(v.x, v.y) then
-			table.remove(a, i)
+			table.remove(star, i)
 			goto recheck
 		end
 	end
